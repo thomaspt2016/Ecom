@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>OTP</title>
+{% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <div class="container w-50 p-5">
+        <H1 style="text-align:center;">OTP Verification Page</H1>
+        <form method="POST">
+            <div class="form-floating mb-3">
+                {% csrf_token %}
+                <div class="form-floating">
+                    <input type="text" class="form-control" name='otp' id="floatingPassword" placeholder="OTP">
+                    <label for="floatingPassword">OTP</label>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-light mt-3">
+                </div>
+            </div>
+        </form>
+        {% endblock %}
+        
+</body>
+
+</html>

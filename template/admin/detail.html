@@ -1,0 +1,47 @@
+{% extends 'admin/adminhome.html' %}
+{% block title %}
+<title>Detail</title>
+{% endblock %}
+
+{% block content %}
+<div class="container w-50 mx-auto mt-4">
+    {% if prod %}
+    {{prod}}
+    <div class="card" style="width: 18rem;">
+        <img src="{{prod.image.url}}" class="card-img-top" alt="{{prod.name}}" height="180px" width="100%">
+        <div class="card-body">
+            <h5 class="card-title">{{prod.name}}</h5>
+            <p class="card-text">{{prod.descrip}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Price : {{prod.price}}</li>
+            <li class="list-group-item">Qty : {{prod.qty}}</li>
+            <li class="list-group-item">Availability : {{prod.availability}}</li>
+            <li class="list-group-item">created : {{prod.created}}</li>
+            <li class="list-group-item">Last Updated : {{prod.updated}}</li>
+            <li class="list-group-item">Category : {{prod.category}}</li>
+
+        </ul>
+        <div class="card-body">
+            <a href="{% url 'shop:updateprod' prod.id %}" class="btn btn-info">Edit</a>
+            <a href="{% url 'shop:deleteprod' prod.id %}" class="btn btn-danger">Delet</a>
+            
+        </div>
+    </div>
+    {% endif %}
+    {% if cat %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{cat.image.url}}" class="card-img-top" alt="{{prod.name}}" height="180px" width="100%">
+        <div class="card-body">
+            <h5 class="card-title">{{cat.name}}</h5>
+            <p class="card-text">{{cat.descrip}}</p>
+        </div>
+        <div class="card-body">
+            <a href="{% url 'shop:updatecate' cat.id %}" class="btn btn-info">Edit</a>
+            <a href="{% url 'shop:deletecate' cat.id %}" class="btn btn-danger">Delet</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
