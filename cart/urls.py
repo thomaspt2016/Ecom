@@ -22,4 +22,7 @@ app_name = 'cart'
 urlpatterns = [
     path('addtocart/<int:i>',views.AddtoCart.as_view(),name='addtocart'),
     path('carview', views.CartView.as_view(), name='cartview'),
+    path('removeitem/<int:i>', views.CartReductionView.as_view(), name='removeitem'),
+    path('deleteitem/<int:i>', views.DeleteItemView.as_view(), name='deleteitem'),
+    path('Qtyupdate/<int:i>', views.QtyUpdateCartView.as_view(), name='Qtyupdate'),
 ]

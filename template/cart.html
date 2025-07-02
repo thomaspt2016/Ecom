@@ -47,21 +47,21 @@
                                     <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                                         {# Inline style for alignment only #}
                                         {% if c.product.qty > 0 %}
-                                        <a href="" aria-label="Decrease quantity">
+                                        <a href="{% url 'cart:removeitem' c.product.id %}" aria-label="Decrease quantity">
                                             <i class="fa-solid fa-minus"></i>
                                         </a>
-                                        <a href="{% url 'cart:addtocart' c.product.id %}"
+                                        <a href="{% url 'cart:Qtyupdate' c.product.id %}"
                                             aria-label="Increase quantity">
                                             <i class="fa-solid fa-plus"></i>
                                         </a>
-                                        <a href="" aria-label="Remove item">
+                                        <a href="{% url 'cart:deleteitem' c.product.id %}" aria-label="Remove item">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                         {% else %}
-                                        <a href="{% url 'cart:addtocart' c.product.id %}" aria-label="Add to cart">
+                                        <a href="{% url 'cart:Qtyupdate' c.product.id %}" aria-label="Add to cart">
                                             <i class="fa-solid fa-plus"></i>
                                         </a>
-                                        <a href="" aria-label="Remove item">
+                                        <a href="{% url 'cart:deleteitem' c.product.id %}" aria-label="Remove item">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                         {% endif %}

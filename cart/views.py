@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views import View
 from shop.models import Product,category
@@ -24,3 +24,29 @@ class CartView(View):
         u = request.user
         c = Cart.objects.filter(user = u)
         return render(request, 'cart.html', {'cart':c})
+
+class CartReductionView(View):
+     def get(self, request, i):
+        u = request.user
+        prod = Product.objects.get(id=i)
+        pro = Cart.objects.get(product=prod,user=u)    
+        pro.qty -= 1
+        pro.save()
+        return redirect('cart:cartview')
+
+class DeleteItemView(View):
+     def get(self, request, i):
+        u = request.user
+        prod = Product.objects.get(id=i)
+        pro = Cart.objects.get(product=prod,user=u)  
+        pro.delete()
+        return redirect('cart:cartview')
+
+class QtyUpdateCartView(View):
+    def get(self, request, i):
+        u = request.user
+        prod = Product.objects.get(id=i)
+        pro = Cart.objects.get(product=prod, user=u)
+        pro.qty += 1
+        pro.save()
+        return redirect('cart:cartview')
