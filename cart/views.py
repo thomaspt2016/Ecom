@@ -50,3 +50,7 @@ class QtyUpdateCartView(View):
         pro.qty += 1
         pro.save()
         return redirect('cart:cartview')
+
+class OrderformView(View):
+    def get(self, request):
+        return HttpResponse("Orderform")

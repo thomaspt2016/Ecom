@@ -25,4 +25,5 @@ urlpatterns = [
     path('removeitem/<int:i>', views.CartReductionView.as_view(), name='removeitem'),
     path('deleteitem/<int:i>', views.DeleteItemView.as_view(), name='deleteitem'),
     path('Qtyupdate/<int:i>', views.QtyUpdateCartView.as_view(), name='Qtyupdate'),
+    path('orderview',views.OrderformView.as_view(),name='orderview')
 ]
