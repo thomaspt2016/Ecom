@@ -2,8 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views import View
 from shop.models import Product,category
-from cart.models import Cart
+from cart.models import Cart,order,OrderItems
 from cart.forms import Orderform
+import razorpay
 
 # Create your views here.
 
@@ -57,5 +58,30 @@ class OrderformView(View):
         us = request.user
         cartpr = Cart.objects.filter(user = us)
         billinform = Orderform()
-
         return render(request, 'checkout.html',{'form':billinform,'cart':cartpr})
+    def post(self, request):
+        us = request.user
+        billinform = Orderform(request.POST)
+        if billinform.is_valid():
+            ordobj =billinform.save(commit=False)
+            ordobj.user = us
+            ordobj.save()
+            c = Cart.objects.filter(user = us)
+            total = 0
+            for i in c:
+                o = OrderItems.objects.create(qty = i.qty,product=i.product,order = ordobj)
+                o.save()
+                total +=i.qty*i.product.price 
+        if ordobj.Payment_Method == 'online payment':
+            client = razorpay.Client(auth=("rzp_test_sJgGk1sHeX3AWm", "ylWAgRlJ3cxLO4BG25C7YEAX"))
+            responsepayement = client.order.create(dict(amount=int(total), currency="INR"))
+            # print(responsepayement)
+            ordid = responsepayement['id']
+            ordobj.order_Id = ordid
+            ordobj.is_ordered = False
+            ordobj.save()
+        else:
+            ordobj.is_ordered = True
+            ordobj.save()
+
+        return redirect('shop:category')

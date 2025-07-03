@@ -23,9 +23,9 @@ class order(models.Model):
         ('COD','cash on delivery'),
         ('online payment','online payment'),
     )
-    Payment_Method = models.CharField(max_length=100)
-    order_Id = models.CharField(max_length=100)
-    is_paid = models.BooleanField(default=False)
+    Payment_Method = models.CharField(max_length=100,choices=paymentchoic)
+    order_Id = models.CharField(max_length=100,null=True)
+    is_ordered = models.BooleanField(default=False)
     amount = models.IntegerField(default=0)
     def __str__(self):
         return str(self.order_Id)
