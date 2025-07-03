@@ -6,3 +6,8 @@ class Orderform(forms.ModelForm):
         model = order
         Payment_Method = forms.CharField(widget=forms.RadioSelect(choices=order.paymentchoic))
         fields = ['address', 'phonenum','Payment_Method',]
+        labels = {
+            'address': 'Delivery Address',
+            'phonenum': 'Contact Phone Number',
+            'payment_method': 'Select Payment Method',
+        }

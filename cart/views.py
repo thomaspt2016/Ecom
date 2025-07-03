@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from shop.models import Product,category
 from cart.models import Cart
+from cart.forms import Orderform
 
 # Create your views here.
 
@@ -53,4 +54,8 @@ class QtyUpdateCartView(View):
 
 class OrderformView(View):
     def get(self, request):
-        return HttpResponse("Orderform")
+        us = request.user
+        cartpr = Cart.objects.filter(user = us)
+        billinform = Orderform()
+
+        return render(request, 'checkout.html',{'form':billinform,'cart':cartpr})
