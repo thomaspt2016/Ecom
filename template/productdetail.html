@@ -28,14 +28,18 @@
                 <div class="single-product-details">
                     <h2>{{pro.name}}</h2>
                     <h5>{{pro.price}}</h5>
-                    <p class="available-stock"><span> More than {{pro.qty}} available / <a href="#">8 sold </a></span>
+                    <p class="available-stock">{% if pro.qty>0 %}<span> More than {{pro.qty}} available / <a href="#">8 sold </a></span>{% endif %}
                     <p>
                     <h4>Short Description:</h4>
                     <p>{{pro.descrip}} </p>
                     <div class="price-box-bar">
                         <div class="cart-and-bay-btn">
-                            <a class="btn hvr-hover" data-fancybox-close="" href="#">Buy New</a>
+                            {% if pro.qty>0 %}
                             <a class="btn hvr-hover" data-fancybox-close="" href="{% url 'cart:addtocart' pro.id %}">Add to cart</a>
+                            {% else %}
+                            <h6>Out of Stock</h6>
+                            {% endif %}
+
                         </div>
                     </div>
 
